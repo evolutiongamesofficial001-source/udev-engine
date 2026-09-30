@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UDev Engine</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Monaco Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/loader.min.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">U</div>
+            <div>
+                <strong>UDev</strong>
+                <span>ENGINE</span>
+            </div>
+        </div>
+
+        <nav>
+
+            <button class="nav-btn active" data-page="home">
+                <span>⌂</span>
+                Início
+            </button>
+
+            <button class="nav-btn" data-page="editor">
+                <span>▣</span>
+                Editor
+            </button>
+
+            <button class="nav-btn" data-page="assets">
+                <span>▧</span>
+                Assets
+            </button>
+
+            <button class="nav-btn" data-page="tools">
+                <span>✦</span>
+                Ferramentas
+            </button>
+
+            <button class="nav-btn" data-page="templates">
+                <span>◈</span>
+                Modelos
+            </button>
+
+            <button class="nav-btn" data-page="preview">
+                <span>▶</span>
+                Preview
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <button id="newProjectSidebar" class="new-project-btn">
+                <span>+</span>
+                Novo projeto
+            </button>
+
+            <div class="engine-version">
+                UDev Engine
+                <small>v1.0.0</small>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div class="project-info">
+
+                <div class="project-icon">🎮</div>
+
+                <div>
+                    <strong id="currentProjectName">
+                        UDev Engine
+                    </strong>
+
+                    <small id="currentProjectStatus">
+                        Nenhum projeto aberto
+                    </small>
+                </div>
+
+            </div>
+
+            <div class="top-actions">
+
+                <button id="saveBtn" class="top-btn">
+                    💾 Salvar
+                </button>
+
+                <button id="runBtn" class="run-btn">
+                    ▶ Executar
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= HOME ================= -->
+
+        <section id="page-home" class="page active">
+
+            <div class="hero">
+
+                <div>
+
+                    <div class="eyebrow">
+                        GAME DEVELOPMENT PLATFORM
+                    </div>
+
+                    <h1>
+                        Crie seus jogos.
+                        <span>Do seu jeito.</span>
+                    </h1>
+
+                    <p>
+                        Uma engine web simples e poderosa para criar
+                        jogos usando HTML, CSS e JavaScript.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <button id="newProjectHero" class="primary-btn">
+                            + Criar novo projeto
+                        </button>
+
+                        <button id="exampleProjectBtn" class="secondary-btn">
+                            ▶ Abrir exemplo
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="hero-logo">
+                    <div class="big-u">U</div>
+                    <div class="hero-logo-text">
+                        UDEV
+                        <small>ENGINE</small>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Projetos</h2>
+                    <p>Seus projetos recentes.</p>
+                </div>
+
+                <button id="newProjectHome" class="small-primary">
+                    + Novo
+                </button>
+
+            </div>
+
+            <div id="projectsGrid" class="projects-grid"></div>
+
+
+            <div class="section-header model-header">
+
+                <div>
+                    <h2>Modelos</h2>
+                    <p>Comece rapidamente com um projeto pronto.</p>
+                </div>
+
+            </div>
+
+            <div class="templates-grid">
+
+                <div class="template-card" data-template="platformer">
+
+                    <div class="template-preview platformer-preview">
+                        <span>PLAYER</span>
+                        <div class="platform"></div>
+                    </div>
+
+                    <div class="template-info">
+                        <strong>Platformer</strong>
+                        <small>Jogo de plataforma 2D</small>
+                    </div>
+
+                </div>
+
+
+                <div class="template-card" data-template="blank">
+
+                    <div class="template-preview blank-preview">
+                        <span>UDEV</span>
+                    </div>
+
+                    <div class="template-info">
+                        <strong>Projeto vazio</strong>
+                        <small>Comece do zero</small>
+                    </div>
+
+                </div>
+
+
+                <div class="template-card" data-template="arcade">
+
+                    <div class="template-preview arcade-preview">
+                        <span>ARCADE</span>
+                    </div>
+
+                    <div class="template-info">
+                        <strong>Arcade</strong>
+                        <small>Base para jogos arcade</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= EDITOR ================= -->
+
+        <section id="page-editor" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Editor</h1>
+                    <p>Programe seu jogo diretamente na UDev Engine.</p>
+                </div>
+
+                <button id="runEditor" class="primary-btn">
+                    ▶ Executar jogo
+                </button>
+
+            </div>
+
+
+            <div class="editor-layout">
+
+                <div class="code-sidebar">
+
+                    <div class="file-sidebar-title">
+                        ARQUIVOS
+                        <button id="addFileBtn" title="Novo arquivo (.html, .css, .js)">+</button>
+                    </div>
+
+                    <div id="codeFileList"></div>
+
+                </div>
+
+                <div class="editor-container">
+
+                    <div class="editor-toolbar">
+
+                        <span id="activeFile">
+                            index.html
+                        </span>
+
+                        <span id="editorStatus">
+                            Pronto
+                        </span>
+
+                    </div>
+
+                    <div id="codeEditor"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ASSETS ================= -->
+
+        <section id="page-assets" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Assets</h1>
+                    <p>Gerencie sprites, imagens, sons e outros arquivos.</p>
+                </div>
+
+                <button id="importAssetBtn" class="primary-btn">
+                    + Importar
+                </button>
+
+            </div>
+
+
+            <input
+                type="file"
+                id="assetInput"
+                multiple
+                hidden
+                accept="image/*,audio/*,.json,.txt"
+            >
+
+
+            <div class="asset-toolbar">
+
+                <button class="asset-filter active" data-filter="all">
+                    Todos
+                </button>
+
+                <button class="asset-filter" data-filter="image">
+                    🖼 Imagens
+                </button>
+
+                <button class="asset-filter" data-filter="audio">
+                    🔊 Sons
+                </button>
+
+                <button class="asset-filter" data-filter="other">
+                    📄 Outros
+                </button>
+
+            </div>
+
+
+            <div id="assetsGrid" class="assets-grid"></div>
+
+        </section>
+
+
+        <!-- ================= TOOLS ================= -->
+
+        <section id="page-tools" class="page">
+
+            <div class="page-title">
+                <div>
+                    <h1>Ferramentas</h1>
+                    <p>Módulos e geradores que criam partes do jogo automaticamente.</p>
+                </div>
+            </div>
+
+            <div id="toolsRoot"></div>
+
+        </section>
+
+
+        <!-- ================= TEMPLATES ================= -->
+
+        <section id="page-templates" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Modelos</h1>
+                    <p>Use uma base pronta para começar seu jogo.</p>
+                </div>
+
+            </div>
+
+
+            <div class="template-large-grid">
+
+                <div class="large-template">
+
+                    <div class="large-template-image platformer-preview">
+                        <span>PLATFORMER</span>
+                    </div>
+
+                    <div class="large-template-content">
+
+                        <h2>Platformer 2D</h2>
+
+                        <p>
+                            Projeto inicial com jogador,
+                            plataformas e controles.
+                        </p>
+
+                        <button
+                            class="primary-btn use-template"
+                            data-template="platformer"
+                        >
+                            Usar modelo
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="large-template">
+
+                    <div class="large-template-image arcade-preview">
+                        <span>ARCADE</span>
+                    </div>
+
+                    <div class="large-template-content">
+
+                        <h2>Arcade</h2>
+
+                        <p>
+                            Base simples para desenvolver
+                            jogos arcade.
+                        </p>
+
+                        <button
+                            class="primary-btn use-template"
+                            data-template="arcade"
+                        >
+                            Usar modelo
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="large-template">
+
+                    <div class="large-template-image blank-preview">
+                        <span>BLANK</span>
+                    </div>
+
+                    <div class="large-template-content">
+
+                        <h2>Projeto vazio</h2>
+
+                        <p>
+                            Uma página completamente limpa
+                            para começar seu projeto.
+                        </p>
+
+                        <button
+                            class="primary-btn use-template"
+                            data-template="blank"
+                        >
+                            Usar modelo
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PREVIEW ================= -->
+
+        <section id="page-preview" class="page preview-page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Preview</h1>
+                    <p>Veja seu jogo funcionando.</p>
+                </div>
+
+                <div class="preview-actions">
+
+                    <button id="refreshPreview" class="secondary-btn">
+                        ↻ Atualizar
+                    </button>
+
+                    <button id="exportBtn" class="secondary-btn">
+                        ⬇ Exportar HTML
+                    </button>
+
+                    <button id="fullscreenBtn" class="primary-btn">
+                        ⛶ Tela cheia
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="preview-container">
+
+                <div class="preview-bar">
+
+                    <span class="traffic red"></span>
+                    <span class="traffic yellow"></span>
+                    <span class="traffic green"></span>
+
+                    <span class="preview-url" id="previewUrl">
+                        udev://game/preview
+                    </span>
+
+                </div>
+
+                <iframe id="gameFrame"></iframe>
+
+                <div class="console-panel">
+                    <div class="console-head">
+                        CONSOLE
+                        <button id="clearConsole">Limpar</button>
+                    </div>
+                    <div id="consoleLines"></div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================= NEW PROJECT MODAL ================= -->
+
+<div id="projectModal" class="modal">
+
+    <div class="modal-box">
+
+        <button class="modal-close" id="closeModal">
+            ×
+        </button>
+
+        <div class="modal-icon">
+            +
+        </div>
+
+        <h2>Novo projeto</h2>
+
+        <p>
+            Configure seu novo projeto de jogo.
+        </p>
+
+        <label>
+            Nome do projeto
+            <input
+                id="projectNameInput"
+                type="text"
+                placeholder="Meu jogo"
+            >
+        </label>
+
+
+        <label>
+            Modelo
+
+            <select id="projectTemplateInput">
+
+                <option value="blank">
+                    Projeto vazio
+                </option>
+
+                <option value="platformer">
+                    Platformer 2D
+                </option>
+
+                <option value="arcade">
+                    Arcade
+                </option>
+
+            </select>
+
+        </label>
+
+
+        <button id="createProjectBtn" class="primary-btn full">
+            Criar projeto
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="dev.js"></script>
+
+</body>
+</html>
